@@ -1,6 +1,6 @@
 # YelpCamp
 
-ThingsToDo is a website where users can create and review campgrounds location. In order to review or create a campground, you must have an account. This project was part of Colt Steele's web dev course on Udemy.
+YelpCamp is a website where users can create and review campgrounds location. In order to review or create a campground, you must have an account. This project was part of Colt Steele's web dev course on Udemy.
 
 ## Motivation
 The motivate for building this project was to get me familiarize with the in's and out's for a full-stack application and the different tools that are use around it such as Asynchronous JavaScript - Promises, async/await, etc.

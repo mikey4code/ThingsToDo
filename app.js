@@ -68,7 +68,7 @@ const sessionConfig = {
     saveUninitialized: true,
     cookie: {
         httpOnly: true,
-        // secure: true,
+        secure: true,
         expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
         maxAge: 1000 * 60 * 60 * 24 * 7
     }
@@ -85,6 +85,7 @@ const scriptSrcUrls = [
     "https://api.mapbox.com/",
     "https://kit.fontawesome.com/",
     "https://cdnjs.cloudflare.com/",
+    "https://res.cloudinary.com/",
     "https://cdn.jsdelivr.net",
 ];
 const styleSrcUrls = [
@@ -93,12 +94,15 @@ const styleSrcUrls = [
     "https://api.mapbox.com/",
     "https://api.tiles.mapbox.com/",
     "https://fonts.googleapis.com/",
+    "https://res.cloudinary.com/",
     "https://use.fontawesome.com/",
+
 ];
 const connectSrcUrls = [
     "https://api.mapbox.com/",
     "https://a.tiles.mapbox.com/",
     "https://b.tiles.mapbox.com/",
+    "https://res.cloudinary.com/",
     "https://events.mapbox.com/",
 ];
 const fontSrcUrls = [];
@@ -112,10 +116,10 @@ app.use(
             workerSrc: ["'self'", "blob:"],
             objectSrc: [],
             imgSrc: [
-                "'self'",
+                "self",
                 "blob:",
                 "data:",
-                "https://res.cloudinary.com/dls2pxc4r/", //SHOULD MATCH YOUR CLOUDINARY ACCOUNT! 
+                "https://res.cloudinary.com/", //SHOULD MATCH YOUR CLOUDINARY ACCOUNT! 
                 "https://images.unsplash.com/",
             ],
             fontSrc: ["'self'", ...fontSrcUrls],

@@ -1,0 +1,66 @@
+<% layout('layouts/boilerplate')%>
+
+
+  <nav id="searchNav" class="navbar navbar-expand navbar-dark bg-dark">
+    <div class="container">
+      <div class="collapse navbar-collapse">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Sort By
+              </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <button type="submit" class="dropdown-item">Highest Rated</button>
+              <a href="/activities" href class="dropdown-item">Reset</a>
+            </div>
+          </li>
+        </ul>
+        <div class="d-none d-md-block">
+          <form class="d-flex">
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success" type="submit">Search</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+    <div class="row">
+      <% activities.forEach(function(activitie) { %>
+        <div class="col-sm-12 col-md-6 col-lg-4">
+          <div class="card indexCards shadow border-0 mt-4">
+            <a href="/activities/<%= activitie._id %>"><img id="activitieCard" class="img-fluid img-thumbnail" src="<%= activitie.images[0].url %>"></a>
+            <div class="card-body">
+              <h5 class="card-title text-capitalize">
+                <a href="/activities/<%= activitie._id %>"><%= activitie.title %></a>
+                <% if (activitie.price <= 50) { %>
+                  <small class="float-right text-muted">$</small>
+                <% } else if (activitie.price < 100) { %>
+                  <small class="float-right text-muted">$$</small>
+                <% } else { %>
+                  <small class="float-right text-muted">$$$</small>
+                <% } %>
+              </h5>
+              <h6 class="card-subtitle">
+                <% if(activitie.reviews.length === 0) { %>
+                  <span class="text-muted">No Reviews</span>
+                <% } %>
+                    <% if (activitie.reviews.length > 1) { %>
+                    <span class="text-muted"><%= activitie.reviews.length %> Review</span>
+                  <% } %>
+                   
+              </h6>
+            </div>
+          </div>
+        </div>
+        <% }) %>
+    </div>
+  </div>
+
+<script>
+    const mapToken = '<%-process.env.MAPBOX_TOKEN%>';
+    const activities = { features: <%- JSON.stringify(activities) %>}
+    console.log(activities)
+</script>
+
+<script src="/javascripts/clusterMap.js"></script>

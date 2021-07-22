@@ -16,12 +16,12 @@ const User = require('./models/user');
 const helmet = require('helmet');
 const mongoSanitize = require('express-mongo-sanitize');
 const userRoutes = require('./routes/users');
-const campgroundRoutes = require('./routes/campgrounds');
+const activitiesRoutes = require('./routes/activities');
 const reviewRoutes = require('./routes/reviews');
 
 const MongoDBStore = require("connect-mongo")(session);
 
-const dbUrl = process.env.DB_URL || 'mongodb://localhost:27017/yelp-camp';
+const dbUrl = 'mongodb://localhost:27017/yelp-camp';
 
 mongoose.connect(dbUrl, {
     useNewUrlParser: true,
@@ -68,7 +68,7 @@ const sessionConfig = {
     saveUninitialized: true,
     cookie: {
         httpOnly: true,
-        secure: true,
+        // secure: true,
         expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
         maxAge: 1000 * 60 * 60 * 24 * 7
     }
@@ -76,7 +76,7 @@ const sessionConfig = {
 
 app.use(session(sessionConfig));
 app.use(flash());
-app.use(helmet());
+//app.use(helmet());
 
 
 const scriptSrcUrls = [
@@ -87,6 +87,7 @@ const scriptSrcUrls = [
     "https://cdnjs.cloudflare.com/",
     "https://res.cloudinary.com/",
     "https://cdn.jsdelivr.net",
+    "https://res.cloudinary.com/douqbebwk/"
 ];
 const styleSrcUrls = [
     "https://kit-free.fontawesome.com/",
@@ -96,6 +97,7 @@ const styleSrcUrls = [
     "https://fonts.googleapis.com/",
     "https://res.cloudinary.com/",
     "https://use.fontawesome.com/",
+    "https://res.cloudinary.com/douqbebwk/"
 
 ];
 const connectSrcUrls = [
@@ -103,9 +105,12 @@ const connectSrcUrls = [
     "https://a.tiles.mapbox.com/",
     "https://b.tiles.mapbox.com/",
     "https://res.cloudinary.com/",
+    "https://res.cloudinary.com/douqbebwk/",
     "https://events.mapbox.com/",
 ];
-const fontSrcUrls = [];
+//const fontSrcUrls = [];
+
+/**
 app.use(
     helmet.contentSecurityPolicy({
         directives: {
@@ -121,13 +126,13 @@ app.use(
                 "data:",
                 "https://res.cloudinary.com/", //SHOULD MATCH YOUR CLOUDINARY ACCOUNT! 
                 "https://images.unsplash.com/",
+                "https://res.cloudinary.com/douqbebwk/"
             ],
             fontSrc: ["'self'", ...fontSrcUrls],
         },
     })
 );
-
-
+ */
 app.use(passport.initialize());
 app.use(passport.session());
 passport.use(new LocalStrategy(User.authenticate()));
@@ -144,8 +149,8 @@ app.use((req, res, next) => {
 
 
 app.use('/', userRoutes);
-app.use('/campgrounds', campgroundRoutes)
-app.use('/campgrounds/:id/reviews', reviewRoutes)
+app.use('/activities', activitiesRoutes)
+app.use('/activities/:id/reviews', reviewRoutes)
 
 
 app.get('/', (req, res) => {

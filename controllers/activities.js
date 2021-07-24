@@ -40,7 +40,7 @@ module.exports.showActivities = async (req, res,) => {
         req.flash('error', 'Cannot find that activities!');
         return res.redirect('/activities');
     }
-    console.log(activities)
+    console.log('here', activities)
     res.render('activities/show', { activities });
 }
 

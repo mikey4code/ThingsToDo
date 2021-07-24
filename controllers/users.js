@@ -1,3 +1,5 @@
+const Activitie = require('../models/activitie');
+const Review = require('../models/review');
 const User = require('../models/user');
 
 module.exports.renderRegister = (req, res) => {
@@ -36,4 +38,18 @@ module.exports.logout = (req, res) => {
     // req.session.destroy();
     req.flash('success', "Goodbye!");
     res.redirect('/activities');
+}
+
+
+module.exports.profile = async (req, res,) => {
+    const user = await User.findById(req.params.user_id)
+    const activities = await Activitie.find({ author: user })
+
+    console.log('whats this', activities)
+    if (!user) {
+        req.flash('error', 'Cannot find that user!');
+        return res.redirect('/activities');
+    }
+    console.log(user)
+    res.render('users/show', { user, activities });
 }

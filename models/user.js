@@ -7,7 +7,13 @@ const UserSchema = new Schema({
         type: String,
         required: true,
         unique: true
-    }
+    },
+    phone: String,
+    firstname: String,
+    lastname: String,
+    townname: String,
+    cityname: String,
+    joined: { type: Date, default: Date.now }
 });
 
 UserSchema.plugin(passportLocalMongoose);

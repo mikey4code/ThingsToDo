@@ -15,4 +15,9 @@ router.route('/login')
 
 router.get('/logout', users.logout)
 
+router.route('/users/:user_id')
+    .get(catchAsync(users.profile))
+
+
+
 module.exports = router;

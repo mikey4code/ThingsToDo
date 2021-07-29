@@ -1,87 +1,131 @@
 <% layout('layouts/boilerplate')%>
     <% include ../partials/flash %>
         <link rel="stylesheet" href="/stylesheets/profile.css">
+        <link rel="stylesheet" href="/stylesheets/stars.css">
+            <div class="row">
+                <div class="col-md-8 mx-auto">
+                    
+                    <!-- Profile widget -->
+                    <div class="d-flex flex-column">
+                        <div class="d-flex justify-content-center align-items-center p-2 cover">
+                            <div class="p-2 profile-head bg-white">
+                                <div class="profile"><img
+                                        src="https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=80"
+                                        alt="..." width="130" class="rounded mb-2 img-thumbnail">
+                                </div>
+                            </div>
+                            <div class="p-4 text-white text-capitalize">
+                                <h4 class="mt-0 mb-0">
+                                    <%- user.firstname%> <%- user.lastname[0]%>.
+                                </h4>
+                                <p class="small mb-0">
+                                    <%- user.city%>, <%- user.state%>
+                                </p>
+                                <p> 
+                                    Joined: <%= moment(user.joined).format('LL') %>
+                                </p>
+                            </div>
 
-        <div class="row">
-            <div class="col-md-8 mx-auto">
-                <!-- Profile widget -->
-                <div class="d-flex flex-column">
-                    <div class="d-flex justify-content-center align-items-center p-2 cover">
-                        <div class="p-2 profile-head bg-white">
-                            <div class="profile"><img
-                                    src="https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=80"
-                                    alt="..." width="130" class="rounded mb-2 img-thumbnail">
+                            <div class="ml-auto align-self-end p-2">
+                                <% if( currentUser && user._id.equals(currentUser._id)) {%>
+                                    <a href="#" class="btn btn-secondary btn-sm">Edit
+                                        profile</a>
+                                    <% } %>
                             </div>
                         </div>
-                        <div class="p-4 text-white">
-                            <h4 class="mt-0 mb-0">
-                                <%- user.username%>
-                            </h4>
-                            <p class="small mb-4"> New York</p>
-                        </div>
 
-                        <div class="ml-auto align-self-end p-2"> <a href="#" class="btn btn-danger btn-sm">Edit
-                                profile</a>
-                        </div>
-                    </div>
 
-                    <div class="px-4 py-3">
-                        <h5 class="mt-4">About</h5>
-                        <div class="p-4 rounded shadow-sm bg-light">
-                            <p class="font-italic mb-0">Web Developer</p>
-                            <p class="font-italic mb-0">Lives in New York</p>
-                            <p class="font-italic mb-0">Photographer</p>
-                        </div>
-                    </div>
-
-                    <div class="py-4 px-4">
-                        <div class="d-flex align-items-center justify-content-between mb-3">
-                            <h5 class="mb-0">My Post</h5><a href="#" class="btn btn-link text-muted"></a>
-                        </div>
-
-                        <div class="row">
-                            <% activities.forEach(function(activitie) { %>
-                                <div class="col-lg-6 mb-2 pr-lg-1">
-                                    <div class="card indexCards shadow border-0 mt-4">
-                                        <a href="/activities/<%= activitie._id %>"><img id="activitieCard"
-                                                class="img-fluid img-thumbnail"
-                                                src="<%= activitie.images[0].url %>"></a>
-                                        <div class="card-body">
-                                            <h5 class="card-title text-capitalize">
-                                                <a href="/activities/<%= activitie._id %>">
-                                                    <%= activitie.title %>
-                                                </a>
-                                                <% if (activitie.price <=50) { %>
-                                                    <small class="float-right text-muted">$</small>
-                                                    <% } else if (activitie.price < 100) { %>
-                                                        <small class="float-right text-muted">$$</small>
-                                                        <% } else { %>
-                                                            <small class="float-right text-muted">$$$</small>
-                                                            <% } %>
-                                            </h5>
-                                            <h6 class="card-subtitle">
-                                                <% if(activitie.reviews.length===0) { %>
-                                                    <span class="text-muted">No Reviews</span>
-                                                    <% } %>
-                                                        <% if (activitie.reviews.length> 1) { %>
-                                                            <span class="text-muted">
-                                                                <%= activitie.reviews.length %> Review
-                                                            </span>
-                                                            <% } %>
-
-                                            </h6>
-                                        </div>
+                        <!--REVIEW SECTION -->
+                        <div class="py-4 px-4 mt-5">
+                            <div class="d-flex align-items-center justify-content-between mb-3">
+                                <h5 class="mb-0">Reviews</h5><a href="#" class="btn btn-link text-muted"></a>
+                            </div>
+                            <% if (reviews.length < 1) { %>
+                                <p>This users has no reviews. </p>
+                                <% } else { %>
+                                    <div>
+                                        <% reviews.forEach(function(review) { %>
+                                            <div class="card-group">
+                                                <div class="card p-2">
+                                                    <div class="d-flex">
+                                                        <div class="p-2">
+                                                            <img src="<%- review.activitie.images[0].url%>" alt="..."
+                                                                width="100" class="rounded mb-2 img-thumbnail">
+                                                        </div>
+                                                        <div class="p-2">
+                                                            <h5 class="card-title text-capitalize">
+                                                                <a href="/activities/<%= review.activitie._id %>">
+                                                                    <%= review.activitie.title %>
+                                                                </a>
+                                                            </h5>
+                                                            <p>
+                                                                <%= review.activitie.tags %> <br>
+                                                                <%= review.activitie.location %>
+                                                            </p>
+        
+                                                        </div>
+                                                    </div>
+                                                    <div class="card-body">
+                                                        <p class="starability-result" data-rating="<%= review.rating %>"></p>
+                                                        <p class="card-text"><small class="text-muted">Last updated <%= moment(review.createdAt).format('LL') %></small></p>
+                                                        <p class="card-text p-2">
+                                                            <%- review.body%>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <% }) %>
                                     </div>
-                                </div>
-                                <% }) %>
+                                    <% } %>
+                        </div>
+
+                        <!--MY POST SECTION -->
+                        <div class="py-4 px-4">
+                            <div class="d-flex align-items-center justify-content-between mb-3">
+                                <h5 class="mb-0">My Post</h5><a href="#" class="btn btn-link text-muted"></a>
+                            </div>
+                            <% if (activities.length < 1) { %>
+                                <p>This users has no post. </p>
+                                <% } else { %>
+                                    <div class="row">
+                                        <% activities.forEach(function(activitie) { %>
+                                            <div class="col-lg-6 mb-2 pr-lg-1">
+                                                <div class="card indexCards shadow border-0 mt-4">
+                                                    <a href="/activities/<%= activitie._id %>"><img id="activitieCard"
+                                                            class="img-fluid img-thumbnail"
+                                                            src="<%= activitie.images[0].url %>"></a>
+                                                    <div class="card-body">
+                                                        <h5 class="card-title text-capitalize">
+                                                            <a href="/activities/<%= activitie._id %>">
+                                                                <%= activitie.title %>
+                                                            </a>
+                                                            <% if (activitie.price <=50) { %>
+                                                                <small class="float-right text-muted">$</small>
+                                                                <% } else if (activitie.price < 100) { %>
+                                                                    <small class="float-right text-muted">$$</small>
+                                                                    <% } else { %>
+                                                                        <small
+                                                                            class="float-right text-muted">$$$</small>
+                                                                        <% } %>
+                                                        </h5>
+                                                        <h6 class="card-subtitle">
+                                                            <% if(activitie.reviews.length===0) { %>
+                                                                <span class="text-muted">No Reviews</span>
+                                                                <% } %>
+                                                                    <% if (activitie.reviews.length> 1) { %>
+                                                                        <span class="text-muted">
+                                                                            <%= activitie.reviews.length %> Review
+                                                                        </span>
+                                                                        <% } %>
+
+                                                        </h6>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <% }) %>
+                                    </div>
+                                    <% } %>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-
-        <script>
-            const user = <% - JSON.stringify(user) %>
-
-
-        </script>

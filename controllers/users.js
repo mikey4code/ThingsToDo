@@ -1,3 +1,4 @@
+const { any } = require('joi');
 const Activitie = require('../models/activitie');
 const Review = require('../models/review');
 const User = require('../models/user');
@@ -8,8 +9,8 @@ module.exports.renderRegister = (req, res) => {
 
 module.exports.register = async (req, res, next) => {
     try {
-        const { email, username, password } = req.body;
-        const user = new User({ email, username });
+        const { email, username, password, firstname, lastname, city, state } = req.body;
+        const user = new User({ email, username, firstname, lastname, city, state });
         const registeredUser = await User.register(user, password);
         req.login(registeredUser, err => {
             if (err) return next(err);
@@ -43,13 +44,14 @@ module.exports.logout = (req, res) => {
 
 module.exports.profile = async (req, res,) => {
     const user = await User.findById(req.params.user_id)
-    const activities = await Activitie.find({ author: user })
-
+    const activities = await Activitie.find({ author: user }).populate('reviews');
+    const reviews = await Review.find({ author: user }).populate('activitie');
     console.log('whats this', activities)
+    console.log('this is review----', reviews)
     if (!user) {
         req.flash('error', 'Cannot find that user!');
         return res.redirect('/activities');
     }
     console.log(user)
-    res.render('users/show', { user, activities });
+    res.render('users/show', { user, activities, reviews });
 }

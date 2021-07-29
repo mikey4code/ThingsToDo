@@ -7,6 +7,7 @@ const { cloudinary } = require("../cloudinary");
 
 module.exports.index = async (req, res) => {
     const activities = await Activities.find({}).populate('popupText');
+    console.log(activities)
     res.render('activities/index', { activities })
 }
 
@@ -36,11 +37,12 @@ module.exports.showActivities = async (req, res,) => {
             path: 'author'
         }
     }).populate('author');
+    
     if (!activities) {
         req.flash('error', 'Cannot find that activities!');
         return res.redirect('/activities');
     }
-    console.log('here', activities)
+    
     res.render('activities/show', { activities });
 }
 

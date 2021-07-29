@@ -36,7 +36,6 @@
                             <img src="<%= img.url%>" class="d-block w-100" alt="">
                         </div>
                         <% }) %>
-
                 </div>
                 <% if(activities.images.length> 1) {%>
                     <a class="carousel-control-prev" href="#campgroundCarousel" role="button" data-slide="prev">
@@ -65,7 +64,8 @@
                     </li>
                     <li class="list-group-item">Submitted by 
                         <a href="/users/<%= activities.author.id%>">
-                            <%= activities.author.username%> </a>    
+                            <%= activities.author.username%> </a> 
+                            on <%= moment(activities.author.createdAt).format('LL') %>   
                     </li>
                     <li class="list-group-item">$<%= activities.price%>/night</li>
                 </ul>
@@ -120,10 +120,7 @@
                                       </a>
                                     
                                 </h5>
-                                <p class="starability-result" data-rating="<%=review.rating%>">
-                                    Rated: <%= review.rating %> stars
-                                </p>
-                                <!-- <h6 class="card-subtitle mb-2 text-muted">By <%= review.author.username%></h6> -->
+                                <p class="starability-result" data-rating="<%=review.rating%>"> </p>
                                 <p class="card-text">Review: <%= review.body %>
                                 </p>
                                 <% if( currentUser && review.author.equals(currentUser._id)) {%>

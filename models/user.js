@@ -11,8 +11,8 @@ const UserSchema = new Schema({
     phone: String,
     firstname: String,
     lastname: String,
-    townname: String,
-    cityname: String,
+    city: String,
+    state: String,
     joined: { type: Date, default: Date.now }
 });
 

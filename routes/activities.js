@@ -10,7 +10,7 @@ const upload = multer({ storage });
 const Activities = require('../models/activitie');
 
 router.route('/')
-    .get(catchAsync(activities.index))
+    .get(catchAsync(activities.index), catchAsync(activities.showActivities))
     .post(isLoggedIn, upload.array('image'), validateActivities, catchAsync(activities.createActivities))
 
 

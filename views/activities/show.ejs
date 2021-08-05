@@ -8,16 +8,10 @@
                     <%= activities.title %>
                 </div>
                 <div class="card shadow-sm mt-3">
+                    <!-------        MAP       ------------->
                     <div class="card-header">
-                        <i class="fas fa-phone"></i> Contact
+                        Location
                     </div>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">
-                            <%= activities.price %>
-                        </li>
-                    </ul>
-                </div>
-                <div class="card shadow-sm mt-3">
                     <div id="map"></div>
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item"><i class="fas fa-map-marker-alt"></i>
@@ -54,6 +48,9 @@
                     <h5 class="card-title">
                         <%= activities.title%>
                     </h5>
+                    <div class="d-flex align-items-center card-title"><p class="starability-result" data-rating="<%= activities.rateAvg%>"></p> 
+                        <p class="p-2"> <%= activities.rateCount%> reviews</p> 
+                    </div>
                     <p class="card-text">
                         <%= activities.description%>
                     </p>
@@ -67,7 +64,12 @@
                             <%= activities.author.username%> </a> 
                             on <%= moment(activities.author.createdAt).format('LL') %>   
                     </li>
-                    <li class="list-group-item">$<%= activities.price%>/night</li>
+                    <% if (activities.price==0) { %>
+                        <li class="list-group-item"> Free</li>
+                    <% }  else { %>
+                         <li class="list-group-item">$<%= activities.price%>/person</li>
+                    <% } %>
+                    
                 </ul>
                 <% if( currentUser && activities.author.equals(currentUser._id)) {%>
                     <div class="card-body">
@@ -77,9 +79,7 @@
                         </form>
                     </div>
                     <% } %>
-                        <div class="card-footer text-muted">
-                            2 days ago
-                        </div>
+    
             </div>
             <% if(currentUser){ %>
                 <h2>Leave a Review</h2>
@@ -114,15 +114,24 @@
                     <% for(let review of activities.reviews) { %>
                         <div class="card mb-3 ">
                             <div class="card-body">
-                                <h5 class="card-title">
+                                <h5 class="card-title text-capitalize">
                                     <a href="/users/<%= review.author.id %>">
-                                        <%= review.author.username%>
+                                        <%- review.author.firstname%> <%- review.author.lastname[0]%>.
                                       </a>
-                                    
                                 </h5>
-                                <p class="starability-result" data-rating="<%=review.rating%>"> </p>
-                                <p class="card-text">Review: <%= review.body %>
+                                <p class="small mb-0">
+                                    <%- review.author.city%>, <%- review.author.state%>
                                 </p>
+                                <div class="d-flex align-items-center card-title"><p class="starability-result" data-rating="<%= review.rating%>"></p> 
+                                    <p class="p-2"> 
+                                        <%= moment(review.author.createdAt).format('LL') %>
+                                    </p>
+                                </div>
+                                
+                                <p class="card-text p-2 mb-2">Review: <br>
+                                    <%= review.body %>
+                                </p>
+                               
                                 <% if( currentUser && review.author.equals(currentUser._id)) {%>
                                     <form action="/activities/<%=activities._id%>/reviews/<%=review._id%>?_method=DELETE"
                                         method="POST">
@@ -134,8 +143,50 @@
                         <% } %>
         </div>
         <div class="col-3">
+            <div class="position-sticky" style="top: 2rem;">
+                <h4>You Might Also Consider</h4>
+                
+                <% if (lis.length < 1) { %>
+                    <div class="card shadow-sm mt-3">
+                        <div class="card-header">
+                            Sorry theres no activites in the area 
+                        </div>
+                    </div>
+                    <% } else { %>
+                        <div>
+                            <% lis.forEach(function(data) { %>
+                                <div class="card-group p-2">
+                                    <div class="card p-2">
+                                        <div class="d-flex">
+                                            <div class="p-2">
+                                                <img src="<%- data.images[0].url%>" alt="..."
+                                                width="100"  class="rounded img-thumbnail">
+                                            </div>
+                                            <div class="">
+                                                <p class="card-title text-capitalize">
+                                                    <a href="/activities/<%= data._id %>">
+                                                        <%= data.title %>
+                                                    </a>
+                                                </p>
+                                                
+                                            </div>
+                                        </div>
+                                        <div class="d-flex align-items-center card-title"><p class="starability-result" data-rating="<%=data.rateAvg%>"></p> 
+                                            <p>(<%=data.rateCount%>)</p> </div>
+                                        <div class="card-body">
+                                            <p class="card-text">
+                                                <%- data.description.slice(0,100)%> . . . 
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <% }) %>
+                        </div>
+                        <% } %>
+            </div>
 
-            <h2>you should consider</h2>
+
+            </div>
         </div>
     </div>
 

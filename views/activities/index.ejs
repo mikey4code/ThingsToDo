@@ -1,7 +1,6 @@
 <% layout('layouts/boilerplate')%>
-
-
-  <nav id="searchNav" class="navbar navbar-expand navbar-dark bg-dark">
+  <div id="cluster-map"> </div>
+  <nav id="searchNav" class="navbar navbar-expand navbar-light bg-white shadow-sm">
     <div class="container">
       <div class="collapse navbar-collapse">
         <ul class="navbar-nav mr-auto">
@@ -11,57 +10,35 @@
               Sort By
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <button type="submit" class="dropdown-item">Highest Rated</button>
+              <form class="sortForm" action="/activities" method="GET">
+                <input type="text" name="sortby" value="rateCount" class="d-none">
+                <button type="submit" class="dropdown-item">Most Reviewed</button>
+              </form>
+              <form class="sortForm" action="/activities" method="GET">
+                <input type="text" name="sortby" value="priceLow" class="d-none">
+                <button type="submit" class="dropdown-item">Lowest Price</button>
+              </form>
+              <form class="sortForm" action="/activities" method="GET">
+                <input type="text" name="sortby" value="priceHigh" class="d-none">
+                <button type="submit" class="dropdown-item">Highest Price</button>
+              </form>
               <a href="/activities" href class="dropdown-item">Reset</a>
             </div>
           </li>
         </ul>
-        
-          <form class="d-flex">
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success" type="submit">Search</button>
+        <div class="d-none d-md-block">
+          <form action="/activities" method="GET" class="input-group">
+            <input type="text" class="form-control" type="text" name="search" placeholder="Search Campgrounds..."
+              aria-label="Search">
+            <div class="input-group-append">
+              <button class="btn btn-danger" type="submit"> Search</button>
+            </div>
           </form>
-  
+        </div>
       </div>
     </div>
   </nav>
 
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="#">Navbar scroll</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarScroll">
-        <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Link</a>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Link
-            </a>
-            <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
-              <li><a class="dropdown-item" href="#">Action</a></li>
-              <li><a class="dropdown-item" href="#">Another action</a></li>
-              <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item" href="#">Something else here</a></li>
-            </ul>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Link</a>
-          </li>
-        </ul>
-        <form class="d-flex">
-          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-success" type="submit">Search</button>
-        </form>
-      </div>
-    </div>
-  </nav>
 
   <div class="row">
     <% activities.forEach(function(activitie) { %>
@@ -87,16 +64,17 @@
             <p>
               <%= activitie.tags %>
             </p>
+            <p>
+              <%= activitie.location %>
+            </p>
             <h6 class="card-subtitle">
-              <% if(activitie.reviews.length===0) { %>
+              <% if(activitie.reviews.length < 1) { %>
                 <span class="text-muted">No Reviews</span>
-                <% } %>
-                  <% if (activitie.reviews.length> 0) { %>
-                    <span class="text-muted">
-                      <%= activitie.reviews.length %> Review
-                    </span>
-                    <% } %>
-
+                <% } else { %>
+                  <span class="text-muted">
+                    <%= activitie.reviews.length %> Review
+                  </span>
+                  <% } %>
             </h6>
           </div>
         </div>
@@ -107,8 +85,8 @@
 
   <script>
     const mapToken = '<%-process.env.MAPBOX_TOKEN%>';
-    const activities = { features: <% - JSON.stringify(activities) %>}
-    console.log(activities)
+    const activities = { features: <%- JSON.stringify(activities) %>};
+
   </script>
 
   <script src="/javascripts/clusterMap.js"></script>

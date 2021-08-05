@@ -35,6 +35,8 @@ const ActivitieSchema = new Schema({
     location: String,
     phone: String,
     tags: String,
+    rateAvg: Number,
+    rateCount: Number,
     createdAt: { type: Date, default: Date.now },
     author: {
         type: Schema.Types.ObjectId,

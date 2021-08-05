@@ -23,9 +23,11 @@
   .starability-result[data-rating="4"]::after {
     width: 120px;
   }
-  
+  .starability-result[data-rating="3.5"]::after {
+    width: 105px;
+  }
   .starability-result[data-rating="3"]::after {
-    width: 90px;
+    width: 80px;
   }
   
   .starability-result[data-rating="2"]::after {

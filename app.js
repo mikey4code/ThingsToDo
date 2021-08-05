@@ -19,6 +19,7 @@ const userRoutes = require('./routes/users');
 const activitiesRoutes = require('./routes/activities');
 const reviewRoutes = require('./routes/reviews');
 
+
 const MongoDBStore = require("connect-mongo")(session);
 
 const dbUrl = 'mongodb://localhost:27017/yelp-camp';

@@ -1,14 +1,12 @@
 mapboxgl.accessToken = mapToken;
 const map = new mapboxgl.Map({
     container: 'cluster-map',
-    style: 'mapbox://styles/mapbox/light-v10',
+    style: 'mapbox://styles/mapbox/streets-v11',
     center: [-103.59179687498357, 40.66995747013945],
     zoom: 3
 });
 
 map.addControl(new mapboxgl.NavigationControl());
-
-
 
 
 map.on('load', function () {
@@ -115,7 +113,7 @@ map.on('load', function () {
         while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
             coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
         }
-
+ 
         new mapboxgl.Popup()
             .setLngLat(coordinates)
             .setHTML(popUpMarkup)
@@ -129,4 +127,5 @@ map.on('load', function () {
         map.getCanvas().style.cursor = '';
     });
 });
+
 

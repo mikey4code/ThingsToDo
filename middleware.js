@@ -1,4 +1,4 @@
-const { activitiesSchema, reviewSchema } = require('./schemas.js');
+const { activitiesSchema, reviewSchema, userSchema } = require('./schemas.js');
 const ExpressError = require('./utils/ExpressError');
 const Activities = require('./models/activitie');
 const Review = require('./models/review');
@@ -14,7 +14,7 @@ module.exports.isLoggedIn = (req, res, next) => {
 
 module.exports.validateActivities = (req, res, next) => {
     const { error } = activitiesSchema.validate(req.body);
-    console.log(req.body);
+    console.log("here------", req.body);
     if (error) {
         console.log('this error ?')
         const msg = error.details.map(el => el.message).join(',')
@@ -47,6 +47,18 @@ module.exports.isReviewAuthor = async (req, res, next) => {
 module.exports.validateReview = (req, res, next) => {
     const { error } = reviewSchema.validate(req.body);
     if (error) {
+        const msg = error.details.map(el => el.message).join(',')
+        throw new ExpressError(msg, 400)
+    } else {
+        next();
+    }
+}
+
+module.exports.validateUser = (req, res, next) => {
+    const { error } = userSchema.validate(req.body);
+    console.log("here------", req.body);
+    if (error) {
+        console.log('this error ?')
         const msg = error.details.map(el => el.message).join(',')
         throw new ExpressError(msg, 400)
     } else {

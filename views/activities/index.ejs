@@ -1,5 +1,43 @@
 <% layout('layouts/boilerplate')%>
-  <div id="cluster-map"> </div>
+
+<link rel="stylesheet" href="/stylesheets/home.css">
+
+<header class="jumbotron p-5 mb-5 rounded-0 d-none d-md-block">
+  <div class="d-flex justify-center flex-column">
+    <div class="jumbotron-text text-light mt-5 text-center">
+        <h1 class="display-3 jumbotronText">Welcome to ThingsToDo!</h1>
+        <p class="lead jumbotronText">Welcome to ThingsToDo! <br> Jump right in and explore our many activities. <br>
+          Feel free to share some of your own and comment on others!</p>
+    </div>
+    <div class="p-5">
+      <form action="/activities" method="GET" class="input-group">
+        <input type="text" class="form-control" type="text" name="search" placeholder="Search Campgrounds..."
+          aria-label="Search">
+        <div class="input-group-append">
+          <button class="btn btn-danger" type="submit"> Search</button>
+        </div>
+      </form>
+    </div>
+    <div class="d-flex justify-content-evenly mt-4">
+      <form  action="/activities" method="GET">
+        <input type="text" value="rateCount" class="d-none">
+        <button class="btn btn-outline-light" type="submit">Most Reviewed</button>
+      </form>
+      <form  action="/activities" method="GET">
+        <input type="text"  value="priceLow" class="d-none">
+        <button class="btn btn-outline-light" type="submit">Lowest Price</button>
+      </form>
+      <form  action="/activities" method="GET">
+        <input type="text" value="priceHigh" class="d-none">
+        <button class="btn btn-outline-light" type="submit">Highest Price</button>
+      </form>
+      
+    </div>
+  </div>
+</header>
+
+<div class="container">
+<div id="cluster-map"> </div>
   <nav id="searchNav" class="navbar navbar-expand navbar-light bg-white shadow-sm">
     <div class="container">
       <div class="collapse navbar-collapse">
@@ -65,7 +103,7 @@
               <%= activitie.tags %>
             </p>
             <p>
-              <%= activitie.location %>
+              <%= activitie.city %>, <%= activitie.state %>
             </p>
             <h6 class="card-subtitle">
               <% if(activitie.reviews.length < 1) { %>
@@ -82,7 +120,7 @@
       <% }) %>
   </div>
   </div>
-
+</div>
   <script>
     const mapToken = '<%-process.env.MAPBOX_TOKEN%>';
     const activities = { features: <%- JSON.stringify(activities) %>};

@@ -18,7 +18,7 @@ router.get('/new', isLoggedIn, activities.renderNewForm)
 
 router.route('/:id')
     .get(catchAsync(activities.showActivities))
-    .put(isLoggedIn, isAuthor, upload.array('image'), validateActivities, catchAsync(activities.updateActivities))
+    .put(isLoggedIn, isAuthor, upload.array('image'),validateActivities, catchAsync(activities.updateActivities))
     .delete(isLoggedIn, isAuthor, catchAsync(activities.deleteActivities));
 
 router.get('/:id/edit', isLoggedIn, isAuthor, catchAsync(activities.renderEditForm))

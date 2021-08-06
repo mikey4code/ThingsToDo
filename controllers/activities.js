@@ -20,7 +20,7 @@ module.exports.index = async (req, res) => {
                 sumrating += obj.rating
             }
 
-            rating.rateAvg = sumrating / rating.reviews.length;
+            rating.rateAvg = Math.floor(sumrating / rating.reviews.length);
             rating.rateCount = rating.reviews.length;
         }
         await rating.save();
@@ -30,7 +30,8 @@ module.exports.index = async (req, res) => {
         Activities.find({
             $or: [
                 { title: { '$regex': req.query.search, $options: 'i' } },
-                { location: { '$regex': req.query.search, $options: 'i' } },
+                { city: { '$regex': req.query.search, $options: 'i' } },
+                { state: { '$regex': req.query.search, $options: 'i' } },
                 { tags: { '$regex': req.query.search, $options: 'i' } }
             ]
         }, (err, data) => {
@@ -67,16 +68,15 @@ module.exports.renderNewForm = (req, res) => {
 
 module.exports.createActivities = async (req, res, next) => {
     const geoData = await geocoder.forwardGeocode({
-        query: req.body.activities.location,
+        query: req.body.activities.address+ " " + req.body.activities.city + " " + req.body.activities.state,
         limit: 1
     }).send()
-    console.log(geoData.body.features[0].geometry)
     const activities = new Activities(req.body.activities);
     activities.geometry = geoData.body.features[0].geometry;
     activities.images = req.files.map(f => ({ url: f.path, filename: f.filename, }));
     activities.author = req.user._id;
     await activities.save();
-    //console.log(activities)
+    console.log(activities)
     req.flash('success', 'Successfully made a new activities!');
     res.redirect(`/activities/${activities._id}`)
 }

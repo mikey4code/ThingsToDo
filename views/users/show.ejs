@@ -1,5 +1,4 @@
 <% layout('layouts/boilerplate')%>
-    <% include ../partials/flash %>
         <link rel="stylesheet" href="/stylesheets/profile.css">
         <link rel="stylesheet" href="/stylesheets/stars.css">
             <div class="row">
@@ -28,7 +27,7 @@
 
                             <div class="ml-auto align-self-end p-2">
                                 <% if( currentUser && user._id.equals(currentUser._id)) {%>
-                                    <a href="#" class="btn btn-secondary btn-sm">Edit
+                                    <a href="/users/<%=user._id%>/useredit" class="btn btn-secondary btn-sm">Edit
                                         profile</a>
                                     <% } %>
                             </div>
@@ -60,7 +59,7 @@
                                                             </h5>
                                                             <p>
                                                                 <%= review.activitie.tags %> <br>
-                                                                <%= review.activitie.location %>
+                                                                <%= review.activitie.city %>, <%= review.activitie.state %>
                                                             </p>
         
                                                         </div>

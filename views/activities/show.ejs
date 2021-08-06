@@ -15,7 +15,10 @@
                     <div id="map"></div>
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item"><i class="fas fa-map-marker-alt"></i>
-                            <%= activities.location %>
+                            <%= activities.address %>
+                        </li>
+                        <li class="list-group-item"><i class="fas fa-map-marker-alt"></i>
+                            <%= activities.city %>, <%= activities.state %>
                         </li>
                     </ul>
                 </div>
@@ -57,7 +60,7 @@
                 </div>
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item text-muted">
-                        <%= activities.location%>
+                        <%= activities.city%>, <%= activities.state %>
                     </li>
                     <li class="list-group-item">Submitted by 
                         <a href="/users/<%= activities.author.id%>">

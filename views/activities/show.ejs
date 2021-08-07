@@ -59,8 +59,11 @@
                     </p>
                 </div>
                 <ul class="list-group list-group-flush">
+                    <li class="list-group-item text-capitalize">
+                        <%= activities.tags%>
+                    </li>
                     <li class="list-group-item text-muted">
-                        <%= activities.city%>, <%= activities.state %>
+                        <%= activities.address%>, <%= activities.city%>, <%= activities.state %>
                     </li>
                     <li class="list-group-item">Submitted by 
                         <a href="/users/<%= activities.author.id%>">

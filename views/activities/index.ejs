@@ -20,15 +20,19 @@
     </div>
     <div class="d-flex justify-content-evenly mt-4">
       <form  action="/activities" method="GET">
-        <input type="text" value="rateCount" class="d-none">
+        <input type="text" name="sortby" value="rateCount" class="d-none">
         <button class="btn btn-outline-light" type="submit">Most Reviewed</button>
       </form>
       <form  action="/activities" method="GET">
-        <input type="text"  value="priceLow" class="d-none">
+        <input type="text" name="sortby" value="rateHigh" class="d-none">
+        <button class="btn btn-outline-light" type="submit">Highest Reviewed</button>
+      </form>
+      <form  action="/activities" method="GET">
+        <input type="text" name="sortby" value="priceLow" class="d-none">
         <button class="btn btn-outline-light" type="submit">Lowest Price</button>
       </form>
       <form  action="/activities" method="GET">
-        <input type="text" value="priceHigh" class="d-none">
+        <input type="text" name="sortby" value="priceHigh" class="d-none">
         <button class="btn btn-outline-light" type="submit">Highest Price</button>
       </form>
       
@@ -99,21 +103,15 @@
                       <small class="float-right text-muted">$$$</small>
                       <% } %>
             </h5>
-            <p>
-              <%= activitie.tags %>
-            </p>
+            <div class="d-flex align-items-center card-title"><p class="starability-result" data-rating="<%= activitie.rateAvg%>"></p> 
+              <p class="p-2" style="font-size: 1.5rem;"> (<%= activitie.rateCount%>)</p> 
+          </div> 
             <p>
               <%= activitie.city %>, <%= activitie.state %>
             </p>
-            <h6 class="card-subtitle">
-              <% if(activitie.reviews.length < 1) { %>
-                <span class="text-muted">No Reviews</span>
-                <% } else { %>
-                  <span class="text-muted">
-                    <%= activitie.reviews.length %> Review
-                  </span>
-                  <% } %>
-            </h6>
+            <p class="text-muted text-capitalize">
+              <%= activitie.tags %>
+            </p>
           </div>
         </div>
       </div>

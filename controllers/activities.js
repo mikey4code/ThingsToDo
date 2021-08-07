@@ -46,12 +46,17 @@ module.exports.index = async (req, res) => {
         if (req.query.sortby === "rateCount") {
             let data = await Activities.find({}).sort({ reviews: -1 })
             res.render('activities/index', { activities: data });
-
-        } else if (req.query.sortby === "priceLow") {
+        } else if (req.query.sortby === "rateHigh") {
+            let data = await Activities.find({}).sort({ rateAvg: -1 })
+            res.render('activities/index', { activities: data });
+        }else if (req.query.sortby === "priceLow") {
             let data = await Activities.find({}).sort({ price: 1 })
             res.render('activities/index', { activities: data });
 
         } else if (req.query.sortby === "priceHigh") {
+            let data = await Activities.find({}).sort({ price: -1 })
+            res.render('activities/index', { activities: data });
+        }else if (req.query.sortby === "priceHigh") {
             let data = await Activities.find({}).sort({ price: -1 })
             res.render('activities/index', { activities: data });
         }

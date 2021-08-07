@@ -61,7 +61,6 @@ module.exports.index = async (req, res) => {
         }
     }
     else {
-        console.log(activities)
         res.render('activities', { activities })
     }
 }
@@ -80,7 +79,6 @@ module.exports.createActivities = async (req, res, next) => {
     activities.images = req.files.map(f => ({ url: f.path, filename: f.filename, }));
     activities.author = req.user._id;
     await activities.save();
-    console.log(activities)
     req.flash('success', 'Successfully made a new activities!');
     res.redirect(`/activities/${activities._id}`)
 }
@@ -101,7 +99,6 @@ module.exports.showActivities = async (req, res,) => {
             lis.push(key)
         }
     });
-    console.log('coor', lis)
     if (!activities) {
         req.flash('error', 'Cannot find that activities!');
         return res.redirect('/activities');
@@ -132,7 +129,7 @@ module.exports.updateActivities = async (req, res) => {
         }
         await activities.updateOne({ $pull: { images: { filename: { $in: req.body.deleteImages } } } })
     }
-    console.log(activities.images);
+    //console.log(activities.images);
     req.flash('success', 'Successfully updated activities!');
     res.redirect(`/activities/${activities._id}`)
 }

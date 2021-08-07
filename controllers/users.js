@@ -50,7 +50,6 @@ module.exports.profile = async (req, res,) => {
         req.flash('error', 'Cannot find that user!');
         return res.redirect('/activities');
     }
-    console.log(user)
     res.render('users/show', { user, activities, reviews });
 }
 

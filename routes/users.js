@@ -7,14 +7,14 @@ const users = require('../controllers/users');
 const { isLoggedIn, isAuthor, validateUser } = require('../middleware');
 
 router.route('/register')
-    .get(catchAsync(users.renderRegister))
+    .get(users.renderRegister)
     .post(catchAsync(users.register));
 
 router.route('/login')
-    .get(catchAsync(users.renderLogin))
+    .get(users.renderLogin)
     .post(passport.authenticate('local', { failureFlash: true, failureRedirect: '/login' }), users.login)
 
-router.get('/logout', catchAsync(users.logout))
+router.get('/logout', users.logout)
 
 router.route('/users/:user_id')
     .get(catchAsync(users.profile))

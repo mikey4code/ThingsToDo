@@ -14,7 +14,6 @@ module.exports.isLoggedIn = (req, res, next) => {
 
 module.exports.validateActivities = (req, res, next) => {
     const { error } = activitiesSchema.validate(req.body);
-    console.log("here------", req.body);
     if (error) {
         console.log('this error ?')
         const msg = error.details.map(el => el.message).join(',')
@@ -56,7 +55,7 @@ module.exports.validateReview = (req, res, next) => {
 
 module.exports.validateUser = (req, res, next) => {
     const { error } = userSchema.validate(req.body);
-    console.log("here------", req.body);
+
     if (error) {
         console.log('this error ?')
         const msg = error.details.map(el => el.message).join(',')

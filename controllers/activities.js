@@ -27,21 +27,20 @@ module.exports.index = async (req, res) => {
     })
     
     if (req.query.search) {
-        Activities.find({
+        const data = await Activities.find({
             $or: [
                 { title: { '$regex': req.query.search, $options: 'i' } },
                 { city: { '$regex': req.query.search, $options: 'i' } },
                 { state: { '$regex': req.query.search, $options: 'i' } },
                 { tags: { '$regex': req.query.search, $options: 'i' } }
             ]
-        }, (err, data) => {
-            if (err) {
-                console.log(err);
-            } else {
-               
-                res.render('activities/index', { activities: data });
-            }
-        })
+        }) 
+        if (!data) {
+            req.flash('error', 'Sorry, not match for that search!');
+            return res.redirect('/activities');
+        }
+        res.render('activities/index', { activities: data })
+        
     } else if (req.query.sortby) {
         if (req.query.sortby === "rateCount") {
             let data = await Activities.find({}).sort({ reviews: -1 })

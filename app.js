@@ -22,7 +22,7 @@ const reviewRoutes = require('./routes/reviews');
 
 const MongoDBStore = require("connect-mongo")(session);
 
-const dbUrl = 'mongodb://localhost:27017/yelp-camp';
+const dbUrl = process.env.DB_URL;
 
 mongoose.connect(dbUrl, {
     useNewUrlParser: true,
@@ -69,7 +69,7 @@ const sessionConfig = {
     saveUninitialized: true,
     cookie: {
         httpOnly: true,
-        // secure: true,
+        secure: true,
         expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
         maxAge: 1000 * 60 * 60 * 24 * 7
     }
@@ -77,7 +77,7 @@ const sessionConfig = {
 
 app.use(session(sessionConfig));
 app.use(flash());
-//app.use(helmet());
+app.use(helmet());
 
 
 const scriptSrcUrls = [
@@ -109,9 +109,9 @@ const connectSrcUrls = [
     "https://res.cloudinary.com/douqbebwk/",
     "https://events.mapbox.com/",
 ];
-//const fontSrcUrls = [];
+const fontSrcUrls = [];
 
-/**
+
 app.use(
     helmet.contentSecurityPolicy({
         directives: {
@@ -127,13 +127,12 @@ app.use(
                 "data:",
                 "https://res.cloudinary.com/", //SHOULD MATCH YOUR CLOUDINARY ACCOUNT! 
                 "https://images.unsplash.com/",
-                "https://res.cloudinary.com/douqbebwk/"
             ],
             fontSrc: ["'self'", ...fontSrcUrls],
         },
     })
 );
- */
+
 app.use(passport.initialize());
 app.use(passport.session());
 passport.use(new LocalStrategy(User.authenticate()));

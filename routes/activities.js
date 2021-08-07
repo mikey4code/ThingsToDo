@@ -14,7 +14,7 @@ router.route('/')
     .post(isLoggedIn, upload.array('image'), validateActivities, catchAsync(activities.createActivities))
 
 
-router.get('/new', isLoggedIn, activities.renderNewForm)
+router.get('/new', isLoggedIn, catchAsync(activities.renderNewForm))
 
 router.route('/:id')
     .get(catchAsync(activities.showActivities))

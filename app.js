@@ -153,6 +153,9 @@ app.use('/activities', activitiesRoutes)
 app.use('/activities/:id/reviews', reviewRoutes)
 
 
+app.get('/', (req, res) => {
+    res.render('home')
+});
 
 
 app.all('*', (req, res, next) => {

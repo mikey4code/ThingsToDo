@@ -10,12 +10,12 @@ module.exports.register = async (req, res, next) => {
     try {
         const { email, username, password, firstname, lastname, city, state } = req.body;
         const user = new User({ email, username, firstname, lastname, city, state });
-        console.log(password)
+       
         const registeredUser = await User.register(user, password);
-        console.log(registeredUser)
+       
         req.login(registeredUser, err => {
             if (err) return next(err);
-            console.log(req.user)
+       
             req.flash('success', 'Welcome to thingsToDo!');
             res.redirect('/activities');
         })
@@ -31,10 +31,9 @@ module.exports.renderLogin = (req, res) => {
 
 
 module.exports.login = (req, res) => {
-    console.log(req.user)
+    
     req.flash('success', 'welcome back!');
     const redirectUrl = req.session.returnTo || '/activities';
-    console.log(redirectUrl)
     delete req.session.returnTo;
     res.redirect(redirectUrl);
 }

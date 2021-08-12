@@ -118,7 +118,7 @@ module.exports.renderEditForm = async (req, res) => {
 
 module.exports.updateActivities = async (req, res) => {
     const { id } = req.params;
-    console.log(req.body);
+    
     const activities = await Activities.findByIdAndUpdate(id, { ...req.body.activities });
     const imgs = req.files.map(f => ({ url: f.path, filename: f.filename }));
     activities.images.push(...imgs);

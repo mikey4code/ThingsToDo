@@ -29,9 +29,9 @@ module.exports.renderLogin = (req, res) => {
     res.render('users/login');
 }
 
+
 module.exports.login = (req, res) => {
     console.log(req.user)
-    console.log("hereeeeeeeeeeeeeeeeee")
     req.flash('success', 'welcome back!');
     const redirectUrl = req.session.returnTo || '/activities';
     console.log(redirectUrl)

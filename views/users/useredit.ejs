@@ -9,39 +9,55 @@
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <input class="form-control" type="text" id="firstname" name="user[firstname]"
-                                placeholder="First Name" value="<%=user.firstname %>" required autofocus>
+                                placeholder="First Name" value="<%=user.firstname %>" pattern="(^[a-zA-Z]+$)" required autofocus>
                             <div class="valid-feedback">
                                 Looks good!
                             </div>
+                            <div class="invalid-feedback">
+                                Please no numbers or special characters.
+                              </div>
                         </div>
                         <div class="col-md-6 mb-3">
                             <input class="form-control" type="text" id="lastname" name="user[lastname]"
-                                placeholder="Last Name" value="<%=user.lastname %>" required>
+                                placeholder="Last Name" value="<%=user.lastname %>" pattern="(^[a-zA-Z]+$)" required>
                             <div class="valid-feedback">
                                 Looks good!
                             </div>
+                            <div class="invalid-feedback">
+                                Please no numbers or special characters.
+                              </div>
                         </div>
                     </div>
                     <div class="mb-3">
                         <input class="form-control" type="text" id="username" name="user[username]" placeholder="Username"
-                        value="<%=user.username %>" required>
+                        value="<%=user.username %>"  pattern="(^[a-zA-Z0-9]*$)" required>
                         <div class="valid-feedback">
                             Looks good!
                         </div>
+                        <div class="invalid-feedback">
+                            Please no special characters or whitespace.
+                          </div>
                     </div>
                     <div class="mb-3">
                         <input class="form-control" type="email" id="email" name="user[email]" placeholder="Email" value="<%=user.email %>" required>
                         <div class="valid-feedback">
                             Looks good!
                         </div>
+                        <div class="invalid-feedback">
+                            Please enter vaild email.
+                          </div>
                     </div>
                     <div class="row mb-3">
                         <div class="col-md">
                             <label class="form-label" for="city">City</label>
-                            <input class="form-control" type="text" id="city" name="user[city]"  value="<%=user.city %>" required>
+                            <input class="form-control" type="text" id="city" name="user[city]"  value="<%=user.city %>" 
+                            pattern="(^[a-zA-Z ]*$)" required>
                             <div class="valid-feedback">
                                 Looks good!
                             </div>
+                            <div class="invalid-feedback">
+                                Please no special characters, whitespace or numbers.
+                              </div>
                         </div>
                         <div class="col-md">
                             <label class="form-label" for="state">State</label>

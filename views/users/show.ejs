@@ -98,7 +98,9 @@
                                                             <a href="/activities/<%= activitie._id %>">
                                                                 <%= activitie.title %>
                                                             </a>
-                                                            <% if (activitie.price <=50) { %>
+                                                            <% if (activitie.price == 0) { %>
+                                                                <small class="float-right text-muted">Free</small>
+                                                            <% }  else if (activitie.price <=50) { %>
                                                                 <small class="float-right text-muted">$</small>
                                                                 <% } else if (activitie.price < 100) { %>
                                                                     <small class="float-right text-muted">$$</small>

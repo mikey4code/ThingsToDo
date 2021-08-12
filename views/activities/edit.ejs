@@ -10,28 +10,37 @@
                         <div class="mb-3">
                             <label class="form-label" for="title">Title</label>
                             <input class="form-control" type="text" id="title" name="activities[title]"
-                                value="<%=activities.title %>" required>
+                                value="<%=activities.title %>" pattern="(^[a-zA-Z0-9 ]*$)" required>
                             <div class="valid-feedback">
                                 Looks good!
+                            </div>
+                            <div class="invalid-feedback">
+                                Please no special characters.
                             </div>
                         </div>
 
                         <div class="mb-3">
                             <label class="form-label" for="address">Address</label>
                             <input class="form-control" type="text" id="address" name="activities[address]"
-                                value="<%=activities.address %>" required>
+                                value="<%=activities.address %>"  pattern="(^[a-zA-Z0-9 ]*$)" required>
                             <div class="valid-feedback">
                                 Looks good!
+                            </div>
+                            <div class="invalid-feedback">
+                                Please no special characters.
                             </div>
                         </div>
                         <div class="row mb-3">
                             <div class="col-md">
                                 <label class="form-label" for="city">City</label>
                                 <input class="form-control" type="text" id="city" name="activities[city]"
-                                    value="<%=activities.city %>" required>
+                                    value="<%=activities.city %>" pattern="(^[a-zA-Z ]*$)" required>
                                 <div class="valid-feedback">
                                     Looks good!
                                 </div>
+                                <div class="invalid-feedback">
+                                    Please no special characters, whitespace or numbers.
+                                  </div>
                             </div>
                             <div class="col-md">
                                 <label class="form-label" for="state">State</label>

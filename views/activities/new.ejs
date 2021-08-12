@@ -9,25 +9,37 @@
                         enctype="multipart/form-data">
                         <div class="mb-3">
                             <label class="form-label" for="title">Title</label>
-                            <input class="form-control" type="text" id="title" name="activities[title]" required>
+                            <input class="form-control" type="text" id="title" name="activities[title]" 
+                            pattern="(^[a-zA-Z0-9 ]*$)" required>
                             <div class="valid-feedback">
                                 Looks good!
+                            </div>
+                            <div class="invalid-feedback">
+                                Please no special characters.
                             </div>
                         </div>
                         <div class="mb-3">
                             <label class="form-label" for="address">Address</label>
-                            <input class="form-control" type="text" id="address" name="activities[address]" required>
+                            <input class="form-control" type="text" id="address" name="activities[address]" 
+                            pattern="(^[a-zA-Z0-9 ]*$)" required>
                             <div class="valid-feedback">
                                 Looks good!
+                            </div>
+                            <div class="invalid-feedback">
+                                Please no special characters.
                             </div>
                         </div>
                         <div class="row mb-3">
                             <div class="col-md">
                                 <label class="form-label" for="city">City</label>
-                                <input class="form-control" type="text" id="city" name="activities[city]" required>
+                                <input class="form-control" type="text" id="city" name="activities[city]"  
+                                pattern="(^[a-zA-Z ]*$)" required>
                                 <div class="valid-feedback">
                                     Looks good!
                                 </div>
+                                <div class="invalid-feedback">
+                                    Please no special characters, whitespace or numbers.
+                                  </div>
                             </div>
                             <div class="col-md">
                                 <label class="form-label" for="state">State</label>
@@ -97,10 +109,13 @@
                             <div class="input-group">
                                 <span class="input-group-text" id="price-label">$</span>
                                 <input type="text" class="form-control" id="price" placeholder="0.00" aria-label="price"
-                                    aria-describedby="price-label" name="activities[price]" required>
+                                    aria-describedby="price-label" name="activities[price]" pattern="(^[0-9.]*$)" required>
                             </div>
                             <div class="valid-feedback">
                                 Looks good!
+                            </div>
+                            <div class="invalid-feedback">
+                                Please only numbers.
                             </div>
                         </div>
                         <div class="mb-3">

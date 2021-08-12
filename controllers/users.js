@@ -1,4 +1,3 @@
-const { any } = require('joi');
 const Activitie = require('../models/activitie');
 const Review = require('../models/review');
 const User = require('../models/user');

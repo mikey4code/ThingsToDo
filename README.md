@@ -1,6 +1,6 @@
-# YelpCamp
+# ThingsToDo
 
-YelpCamp is a website where users can create and review activities location. In order to review or create a activities, you must have an account. This project was part of Colt Steele's web dev course on Udemy.
+ThingsToDo is a website where users can create and review activities location. In order to review or create a activitity, you must have an account.
 
 ## Motivation
 The motivate for building this project was to get me familiarize with the in's and out's for a full-stack application and the different tools that are use around it such as Asynchronous JavaScript - Promises, async/await, etc.

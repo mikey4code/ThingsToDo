@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-//const Activities = require('./activitie')
+ 
 const Schema = mongoose.Schema;
 
 

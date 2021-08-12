@@ -49,6 +49,7 @@ module.exports.userSchema = Joi.object({
         lastname: Joi.string().required().escapeHTML(),
         username: Joi.string().required().escapeHTML(),
         email: Joi.string().required().escapeHTML(),
+        password: Joi.string().required().escapeHTML(),
         city: Joi.string().required().escapeHTML(),
         state: Joi.string().required().escapeHTML(),
     }).required()

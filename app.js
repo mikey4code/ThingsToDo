@@ -18,6 +18,7 @@ const mongoSanitize = require('express-mongo-sanitize');
 const userRoutes = require('./routes/users');
 const activitiesRoutes = require('./routes/activities');
 const reviewRoutes = require('./routes/reviews');
+const moment = require('moment');
 
 
 const MongoDBStore = require("connect-mongo")(session);
@@ -38,6 +39,7 @@ db.once("open", () => {
 });
 
 const app = express();
+app.locals.moment = require("moment");
 app.engine('ejs', ejsMate)
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'))
